@@ -1,8 +1,12 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_from_directory
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 
 app = Flask(__name__)
 
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Pages 
 
@@ -36,15 +40,9 @@ def supportus():
 
 # Gifs
 
-@app.route('/bird')
-def bird():   
-    return send_file('bird.gif', mimetype='image/gif')
-
-@app.route('/vortex')
-def vortex():   
-    return send_file('vortex.gif', mimetype='image/gif')
-
-
+@app.route("/images/<path:path>")
+def static_dir(path):
+    return send_from_directory("images", path)
 
 if __name__ == "__main__":
     app.run(debug=True)
