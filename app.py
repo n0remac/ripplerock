@@ -33,6 +33,9 @@ def partners():
 def supportus():
     return render_template("Get Involved/Get Involved.html")
 
+@app.route("/areyouokay")
+def areyouokay():
+    return render_template("Resourses/Publications/Areyouok/Areyouok.html")
 # Gifs
 
 @app.route("/images/<path:path>")
